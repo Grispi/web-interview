@@ -17,11 +17,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    document
-      .querySelectorAll('button')
-      .querySelectorAll('[id=GP-button]')
-      .attachEventHandler('click', this.onClick)
-
     fetch(`${API_ENDPOINT}/availableSlots`)
       .then(res => res.json())
       .then(json => {
@@ -30,10 +25,6 @@ class App extends Component {
       .catch(() => {
         // TODO: Handle error here
       })
-  }
-
-  onClick() {
-    this.setState({ selectedAppointmentType: 'gp' })
   }
 
   render() {
@@ -46,10 +37,10 @@ class App extends Component {
         j++
       ) {
         if (
-          this.state.availableSlots[j]['consultantType'][i] ===
+          this.state.availableSlots[i]['consultantType'][j] ===
           this.state.selectedAppointmentType
         ) {
-          slots.push(this.state.availableSlots[j])
+          slots.push(this.state.availableSlots[i])
         }
       }
     }
@@ -61,33 +52,18 @@ class App extends Component {
           <img src={logo} className="app-logo" alt="Babylon Health" />
         </div>
         <div style={{ maxWidth: 600, margin: '24px auto' }}>
-          <div className="button" id="GP-button">
-            GP
-          </div>
-          <div
-            className="button"
-            onClick={e => {
-              this.setState({ selectedAppointmentType: 'Therapist' })
-            }}
-          >
-            Therapist
-          </div>
-          <div
-            className="button"
-            onClick={e => {
-              this.setState({ selectedAppointmentType: 'Physio' })
-            }}
-          >
-            Physio
-          </div>
-          <div
-            className="button"
-            onClick={e => {
-              this.setState({ selectedAppointmentType: 'specialist' })
-            }}
-          >
-            Specialist
-          </div>
+          <ButtonList
+            options={[
+              { value: 'gp', label: 'GP' },
+              { value: 'therapist', label: 'Therapist' },
+              { value: 'physio', label: 'Physio' },
+              { value: 'specialist', label: 'Specialist' },
+            ]}
+            onChange={value =>
+              this.setState({ selectedAppointmentType: value })
+            }
+          />
+
           <div>
             <strong>Appointments</strong>
             {slots.map(slot => (
@@ -118,6 +94,21 @@ class App extends Component {
         </div>
       </div>
     )
+  }
+}
+
+class ButtonList extends Component {
+  render() {
+    return this.props.options.map(option => (
+      <div
+        className="button"
+        onClick={() => {
+          this.props.onChange(option.value)
+        }}
+      >
+        {option.label}
+      </div>
+    ))
   }
 }
 
