@@ -5,6 +5,13 @@ import { API_ENDPOINT } from './config'
 
 import './App.scss'
 
+const consultantTypeOptions = [
+  { value: 'gp', label: 'GP' },
+  { value: 'therapist', label: 'Therapist' },
+  { value: 'physio', label: 'Physio' },
+  { value: 'specialist', label: 'Specialist' },
+]
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -16,6 +23,7 @@ class App extends Component {
       selectedTime: null,
       selectedAppointmentType: null,
       user: null,
+      notes: null,
     }
   }
 
@@ -60,6 +68,31 @@ class App extends Component {
       ':' +
       d.getMinutes()
     )
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    console.log('submited')
+
+    fetch(`${API_ENDPOINT}/appointments`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: this.state.userId,
+        dateTime: this.state.selectedTime,
+        notes: this.state.notes,
+        type:
+          consultantTypeOptions.find(
+            element => element.value == this.state.selectedConsultantType
+          ).label + ' appointment',
+      }),
+    })
+  }
+
+  handleChange(event) {
+    this.setState({ notes: event.target.value })
   }
 
   render() {
@@ -117,12 +150,7 @@ class App extends Component {
             <strong>Consultant Type</strong>
             <div>
               <ButtonList
-                options={[
-                  { value: 'gp', label: 'GP' },
-                  { value: 'therapist', label: 'Therapist' },
-                  { value: 'physio', label: 'Physio' },
-                  { value: 'specialist', label: 'Specialist' },
-                ]}
+                options={consultantTypeOptions}
                 onChange={value =>
                   this.setState({ selectedConsultantType: value })
                 }
@@ -158,22 +186,22 @@ class App extends Component {
 
           <div>
             <strong>Notes</strong>
-            <textarea />
+            <textarea
+              value={this.state.notes}
+              onChange={e => this.handleChange(e)}
+            />
           </div>
+
           <div>
-            <div
+            <button
               className="button"
-              onClick={() => {
+              onClick={e => {
+                this.handleSubmit(e)
                 /* TODO: submit the data */
               }}
             >
               Book
-            </div>
-          </div>
-          <div>
-            Consultant: {this.state.selectedConsultantType}
-            Time: {this.state.selectedTime}
-            Type: {this.state.selectedAppointmentType}
+            </button>
           </div>
         </div>
       </div>
