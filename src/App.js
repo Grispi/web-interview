@@ -116,7 +116,9 @@ class App extends Component {
     if (this.state.initialDataError) {
       return (
         <Page>
-          <h2>An error has occurred, please try again later.</h2>
+          <h2 className="error">
+            An error has occurred, please try again later.
+          </h2>
         </Page>
       )
     } else {
@@ -166,9 +168,11 @@ class App extends Component {
             ) : null}
           </div>
           <form>
-            {this.state.submitError
-              ? 'There was an error creating the appointment. Try again later'
-              : null}
+            {this.state.submitError ? (
+              <p className="error">
+                There was an error creating the appointment. Try again later
+              </p>
+            ) : null}
             <FormField
               title="Consultant Type"
               icon={{
