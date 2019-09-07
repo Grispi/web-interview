@@ -173,7 +173,7 @@ class App extends Component {
                 <img
                   src={this.state.user['avatar']}
                   className="avatar"
-                  alt="${this.state.user['firstName']} Avatar"
+                  alt={`${this.state.user['firstName']} Avatar`}
                 />
                 <strong>
                   {this.state.user['firstName']} {this.state.user['lastName']}
