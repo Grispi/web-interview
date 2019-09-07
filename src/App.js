@@ -30,6 +30,7 @@ class App extends Component {
       notes: null,
       initialDataError: null,
       submitError: null,
+      submitSucceeded: false,
     }
   }
 
@@ -95,8 +96,7 @@ class App extends Component {
           ).label + ' appointment',
       }),
     })
-      // TODO handle success
-      .then()
+      .then(() => this.setState({ submitSucceeded: true }))
       .catch(error => this.setState({ submitError: error }))
   }
 
@@ -119,6 +119,20 @@ class App extends Component {
           <h2 className="error">
             An error has occurred, please try again later.
           </h2>
+        </Page>
+      )
+    } else if (this.state.submitSucceeded) {
+      return (
+        <Page>
+          <h2>Your new appointment was created.</h2>
+          <p>
+            You will be seeing a {this.state.selectedConsultantType} on{' '}
+            {this.formatDatetime(this.state.selectedTime)} by{' '}
+            {this.state.selectedAppointmentType}.
+          </p>
+          {this.state.notes ? (
+            <p>Additional notes: {this.state.notes}</p>
+          ) : null}
         </Page>
       )
     } else {
