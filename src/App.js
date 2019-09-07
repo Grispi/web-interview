@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 
-import logo from './logo.png'
 import { API_ENDPOINT } from './config'
 import consultantTypeIcon from './type-icon.png'
 import dateTimeIcon from './date-time-icon.png'
 import appointmentTypeIcon from './appointment-type-icon.png'
 import notesIcon from './notes-icon.png'
+
+import Page from './components/Page'
+import FormField from './components/FormField'
+import ButtonList from './components/ButtonList'
 
 import './App.scss'
 
@@ -279,65 +282,6 @@ class App extends Component {
         </Page>
       )
     }
-  }
-}
-class Page extends Component {
-  render() {
-    return (
-      <div className="app">
-        <div className="app-header logo">
-          <img src={logo} className="app-logo" alt="Babylon Health" />
-        </div>
-        <div style={{ maxWidth: 600, margin: '24px auto' }}>
-          <div className="container">{this.props.children}</div>
-        </div>
-      </div>
-    )
-  }
-}
-class FormField extends Component {
-  render() {
-    return (
-      <fieldset>
-        <legend>
-          <img
-            src={this.props.icon.src}
-            className="type-icon"
-            alt={this.props.icon.alt}
-          />
-
-          {this.props.title}
-        </legend>
-        {this.props.children}
-      </fieldset>
-    )
-  }
-}
-class ButtonList extends Component {
-  render() {
-    return this.props.options.map(option => (
-      <label
-        htmlFor={option.label}
-        key={option.value}
-        className={
-          this.props.checked === option.value
-            ? 'radio-inline checked-class'
-            : 'radio-inline'
-        }
-      >
-        {option.label}
-        <input
-          id={option.label}
-          type="radio"
-          value={option.value}
-          checked={this.props.checked === option.value}
-          onChange={() => {
-            this.props.onChange(option.value)
-          }}
-          name={this.props.name}
-        ></input>
-      </label>
-    ))
   }
 }
 
