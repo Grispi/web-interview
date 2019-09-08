@@ -28,6 +28,8 @@
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.1.4",
     "husky": "^2.5.0",
     "lint-staged": "^8.2.1",
     "prettier": "^1.18.2",
