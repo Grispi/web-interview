@@ -82,11 +82,13 @@ label.radio-inline {
   border-radius: 35px;
 }
 
-label:hover,
-label:active,
-label:focus {
+input:checked + label.radio-inline {
   background-color: $positive;
   color: $secondary-light;
+}
+
+input:focus + label.radio-inline {
+  outline: auto;
 }
 
 input {
@@ -98,8 +100,10 @@ form {
   padding: 10px;
 }
 
-fieldset {
+.form-field {
   border-width: 0px;
+  padding: 0.35em 0.75em 0.625em;
+  display: block;
 }
 
 textarea {
@@ -109,6 +113,7 @@ textarea {
   border-radius: 10px;
   box-sizing: border-box;
   padding: 10px;
+  margin-top: 12px;
 }
 .type-icon {
   width: 20px;
@@ -121,10 +126,6 @@ legend {
 .user-info {
   display: flex;
   padding: 20px 20px 20px 0;
-}
-label.checked-class {
-  background-color: $positive;
-  color: $secondary-light;
 }
 
 .error {

@@ -3,16 +3,7 @@ import React, { Component } from 'react'
 class ButtonList extends Component {
   render() {
     return this.props.options.map(option => (
-      <label
-        htmlFor={option.label}
-        key={option.value}
-        className={
-          this.props.checked === option.value
-            ? 'radio-inline checked-class'
-            : 'radio-inline'
-        }
-      >
-        {option.label}
+      <React.Fragment key={option.value}>
         <input
           id={option.label}
           type="radio"
@@ -23,7 +14,10 @@ class ButtonList extends Component {
           }}
           name={this.props.name}
         ></input>
-      </label>
+        <label htmlFor={option.label} className="radio-inline">
+          {option.label}
+        </label>
+      </React.Fragment>
     ))
   }
 }

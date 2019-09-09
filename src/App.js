@@ -196,6 +196,7 @@ class App extends Component {
                 src: consultantTypeIcon,
                 alt: 'Consultant type icon',
               }}
+              asFieldSet
             >
               <ButtonList
                 options={consultantTypeOptions}
@@ -217,6 +218,7 @@ class App extends Component {
                 src: dateTimeIcon,
                 alt: 'Date and time icon',
               }}
+              asFieldSet
             >
               <ButtonList
                 options={slots.map(slot => ({
@@ -240,6 +242,7 @@ class App extends Component {
                 src: appointmentTypeIcon,
                 alt: 'Appointment type icon',
               }}
+              asFieldSet
             >
               <ButtonList
                 options={availableSlotsForTime.map(type => ({
